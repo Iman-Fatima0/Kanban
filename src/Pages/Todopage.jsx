@@ -8,6 +8,7 @@ import Donecol from "../Components/Donecol";
 const TodoPage = () => {
   const [tasks, setTasks] = useState(() => JSON.parse(localStorage.getItem("tasks")) || []);
 const [draggedtask,setdraggedtask]=useState(null);
+const [draggedIndex,setdraggedindex]=useState(null);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -25,23 +26,43 @@ const [draggedtask,setdraggedtask]=useState(null);
     setTasks(tasks.filter(task => task.title !== taskTitle));
   };
 
-  const handledragstart = (task) => {
+  const handledragstart = (task,index ) => {
     setdraggedtask(task);
+    setdraggedindex(index);
   };
   
   const handledragover = (e) => {
     e.preventDefault();
   };
   
-  const handledargdrop=(draggedstatus)=>
+  const handledargdropinColumn=(draggedstatus, dropindex )=>
   {
-   if(draggedtask)
+   if(draggedtask && draggedIndex!==null)
    {
-    updateTask({...draggedtask,status:draggedstatus});
-    setdraggedtask(null);
-   }
-  }
+   const updatedTask =[...tasks];
+   const TaskAcrossColumn= updatedTask.filter(task=>task.status === draggedstatus );
+   const TaskInColumn = TaskAcrossColumn[draggedIndex];
+   TaskAcrossColumn[draggedIndex]=TaskAcrossColumn[dropindex];
+   TaskAcrossColumn[dropindex]=TaskInColumn;
+
+   const newInColumnTasks = tasks.map(task => {
+    const compare = TaskAcrossColumn.find(i => i.title === i.title);
+    return compare || task;
+  });
   
+   setTasks(newInColumnTasks);
+   }
+   setdraggedindex(null);
+   setdraggedtask(null);
+  }
+  const handledargdrop=(draggedstatus)=>
+    {
+     if(draggedtask)
+     {
+      updateTask({...draggedtask,status:draggedstatus});
+      setdraggedtask(null);
+     }
+    }
   return (
     <div>
       <Navbar addTask={addTask} />
@@ -53,8 +74,8 @@ const [draggedtask,setdraggedtask]=useState(null);
               To Do
             </Typography.Title>
           </Flex>
-          <div onDragOver={handledragover}  onDrop={()=>handledargdrop("todo")}>
-          <Todocol tasks={tasks.filter(task => task.status === "todo")} updateTask={updateTask} deleteTask={deleteTask}  handledragstart={handledragstart} />
+          <div onDragOver={handledragover}   onDrop={()=>handledargdrop("todo")}>
+          <Todocol tasks={tasks.filter(task => task.status === "todo")} updateTask={updateTask} deleteTask={deleteTask}  handledragstart={handledragstart} handledargdropinColumn={handledargdropinColumn} />
           </div>
         </Splitter.Panel>
 
@@ -65,7 +86,7 @@ const [draggedtask,setdraggedtask]=useState(null);
             </Typography.Title>
           </Flex>
           <div onDragOver={handledragover} onDrop={()=>handledargdrop("inprogress")}>
-          <Inprogresscol tasks={tasks.filter(task => task.status === "inprogress")} updateTask={updateTask} deleteTask={deleteTask}  handledragstart={handledragstart} />
+          <Inprogresscol tasks={tasks.filter(task => task.status === "inprogress")} updateTask={updateTask} deleteTask={deleteTask}  handledragstart={handledragstart} handledargdropinColumn={handledargdropinColumn} />
             </div>
         </Splitter.Panel>
         <Splitter.Panel >
@@ -75,7 +96,7 @@ const [draggedtask,setdraggedtask]=useState(null);
             </Typography.Title>
           </Flex>
           <div onDragOver={handledragover} onDrop={() => handledargdrop("done")}>
-          <Donecol tasks={tasks.filter(task => task.status === "done")} updateTask={updateTask} deleteTask={deleteTask}  handledragstart={handledragstart} />
+          <Donecol tasks={tasks.filter(task => task.status === "done")} updateTask={updateTask} deleteTask={deleteTask}  handledragstart={handledragstart} handledargdropinColumn={handledargdropinColumn} />
             </div>
         </Splitter.Panel>
       </Splitter>

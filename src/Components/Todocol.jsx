@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { List, Button, Tag } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-const Todocol = ({ tasks, updateTask, deleteTask,handledragstart }) => {
+const Todocol = ({ tasks, updateTask, deleteTask,handledragstart,handledargdropinColumn }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
 
   useEffect(() => {
@@ -10,8 +10,8 @@ const Todocol = ({ tasks, updateTask, deleteTask,handledragstart }) => {
 
   return (
     <div>
-      <List bordered dataSource={filteredTasks} renderItem={(task) => (
-          <List.Item draggable  onDragStart={() => handledragstart(task)}>
+      <List bordered dataSource={filteredTasks} renderItem={(task,index) => (
+          <List.Item draggable  onDragStart={() => handledragstart(task,index)}  onDrop={()=>handledargdropinColumn("todo",index)}>
             <div>
               <h3>{task.title}</h3>
               <p>{task.description}</p>
