@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { List, Button, Tag } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-const Inprogresscol = ({ tasks, updateTask, deleteTask }) => {
+const Inprogresscol = ({ tasks, updateTask, deleteTask,handledragstart }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
 
   useEffect(() => {
@@ -10,11 +10,8 @@ const Inprogresscol = ({ tasks, updateTask, deleteTask }) => {
 
   return (
     <div>
-      <List
-        bordered
-        dataSource={filteredTasks} 
-        renderItem={(task) => (
-          <List.Item>
+      <List  bordered  dataSource={filteredTasks}   renderItem={(task) => (
+          <List.Item draggable onDragStart={() => handledragstart(task)}>
             <div>
               <h3>{task.title}</h3>
               <p>{task.description}</p>
@@ -25,7 +22,7 @@ const Inprogresscol = ({ tasks, updateTask, deleteTask }) => {
             </div>
             <div>
               <Button onClick={() => updateTask({ ...task, status: "done" })} type="default">
-              Done
+              Move To Done
               </Button>
               <Button onClick={() => deleteTask(task.title)} type="danger">
               <DeleteOutlined />

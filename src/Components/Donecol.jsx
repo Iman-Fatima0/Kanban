@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { List, Button, Tag } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-const Donecol = ({ tasks, deleteTask }) => {
+const Donecol = ({ tasks, deleteTask, handledragstart }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
 
   useEffect(() => {
     setFilteredTasks(tasks.filter((task) => task.status === "done"));
   }, [tasks]);
+  // const dragstart = (e, task) => {
+  //   e.dataTransfer.setData("task", JSON.stringify(task));
+  // };
 
+  // const dragend = (e) => {
+  //   const droppedTask = JSON.parse(e.dataTransfer.getData("task")); 
+  //   console.log("Task dragged:", droppedTask);
+  // };
   return (
     <div>
       <List bordered dataSource={filteredTasks} renderItem={(task) => (
-          <List.Item>
+          <List.Item draggable  onDragStart={() => handledragstart(task)} >
             <div>
               <h3>{task.title}</h3>
               <p>{task.description}</p>
