@@ -35,26 +35,28 @@ const [draggedIndex,setdraggedindex]=useState(null);
     e.preventDefault();
   };
   
-  const handledargdropinColumn=(draggedstatus, dropindex )=>
-  {
-   if(draggedtask && draggedIndex!==null)
-   {
-   const updatedTask =[...tasks];
-   const TaskAcrossColumn= updatedTask.filter(task=>task.status === draggedstatus );
-   const TaskInColumn = TaskAcrossColumn[draggedIndex];
-   TaskAcrossColumn[draggedIndex]=TaskAcrossColumn[dropindex];
-   TaskAcrossColumn[dropindex]=TaskInColumn;
-
-   const newInColumnTasks = tasks.map(task => {
-    const compare = TaskAcrossColumn.find(i => i.title === i.title);
-    return compare || task;
-  });
+  const handledargdropinColumn = (draggedstatus, newstatus, dropindex) => {
+    if (draggedtask && draggedIndex >= 0) {
+      let newtasks = [...tasks];
+      let draggedcolumntasks = newtasks.filter(task => task.status === draggedstatus);
+      let droppedcolumntasks = newtasks.filter(task => task.status === newstatus);
+        draggedcolumntasks.splice(draggedIndex, 1);
+      draggedtask.status = newstatus;
+      droppedcolumntasks.splice(dropindex, 0, draggedtask);
+        newtasks = [
+        ...draggedcolumntasks,
+        ...droppedcolumntasks,
+        ...newtasks.filter(task => task.status !== draggedstatus && task.status !== newstatus)
+      ];
   
-   setTasks(newInColumnTasks);
-   }
-   setdraggedindex(null);
-   setdraggedtask(null);
-  }
+      setTasks(newtasks);
+    }
+  
+    setdraggedtask(null);
+    setdraggedindex(null);
+  };
+  
+  
   const handledargdrop=(draggedstatus)=>
     {
      if(draggedtask)
