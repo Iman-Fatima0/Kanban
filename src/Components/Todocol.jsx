@@ -6,7 +6,7 @@ const Todocol = ({
   updateTask,
   deleteTask,
   handledragstart,
-  handledargdropinColumn,
+
 }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
 
@@ -20,31 +20,13 @@ const Todocol = ({
         bordered
         dataSource={filteredTasks}
         renderItem={(task, index) => (
-          <List.Item
-            draggable
-            onDragStart={(event) => {
-              console.log("event ondrag start", event)
-              handledragstart(task, index);
-            }}
-            onDrop={(event) => {
-              console.log("drop")
-              handledargdropinColumn("todo", index);
-            }}
-          >
+          <List.Item draggable onDragStart={() => { handledragstart(task, index);}}>
             <div>
               <strong>{task.title}</strong>
               <p>{task.description}</p>
               <p>
                 <strong>Priority:</strong>{" "}
-                <Tag
-                  color={
-                    task.priority === "high"
-                      ? "red"
-                      : task.priority === "medium"
-                      ? "orange"
-                      : "green"
-                  }
-                >
+                <Tag color={ task.priority === "high"? "red": task.priority === "medium" ? "orange" : "green"} >
                   {task.priority}
                 </Tag>
               </p>

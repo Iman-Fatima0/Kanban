@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { List, Button, Tag } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-const Inprogresscol = ({ tasks, updateTask, deleteTask,handledragstart,handledargdropinColumn }) => {
+const Inprogresscol = ({ tasks, updateTask, deleteTask,handledragstart }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const Inprogresscol = ({ tasks, updateTask, deleteTask,handledragstart,handledar
   return (
     <div>
       <List  bordered  dataSource={filteredTasks}   renderItem={(task , index) => (
-          <List.Item draggable onDragStart={() => handledragstart(task)}  onDrop={()=>handledargdropinColumn("todo",index)}>
+          <List.Item draggable onDragStart={() => handledragstart(task)}  >
             <div>
               <strong>{task.title}</strong>
               <p>{task.description}</p>
