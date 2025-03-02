@@ -21,6 +21,7 @@ const Navbar = ({addTask}) => {
       <Modal title="Add a New Task" open={isModalOpen} onCancel={handleCancel} footer={null}>
         <AddTaskCard addTask={addTask} onClose={handleCancel} /> 
       </Modal>
+      
     </nav>
   );
 };

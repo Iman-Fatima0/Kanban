@@ -1,131 +1,69 @@
 import React, { useState, useEffect } from "react";
+import { creatnewTask } from "../hooks/useTasks";
+import toast from "react-hot-toast";
 
 function AddTaskCard({ addTask, onClose }) {
-  const [title, settitle] = useState("");
-  const [description, setdescription] = useState("");
-  const [status, setStatus] = useState("todo");
-  const [dueDate, setdueDate] = useState(new Date());
-  const [priority, setPriority] = useState("low");
-  const [task, settask] = useState(() => {
-    return JSON.parse(localStorage.getItem("task")) || [];
-  });
+  const [name, setName] = useState("");
+  const [Description, setDescription] = useState("");
+  const [status, setStatus] = useState("To Do");
+  const [dueDate, setDueDate] = useState();
+  const [priority, setPriority] = useState("Low");  
+  // const [tasks, setTasks] = useState(() => {
+  //   return JSON.parse(localStorage.getItem("tasks")) || [];
+  // });
 
-  useEffect(() => {
-    localStorage.setItem("task", JSON.stringify(task));
-  }, [task]);
+  // useEffect(() => {
+  //   localStorage.setItem("tasks", JSON.stringify(tasks));
+  // }, [tasks]);
 
-  const handlesubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (status == "") {
-    //   setStatus("todo");
-    // }
 
-    // if (priority == "") {
-    //   setPriority("low");
-    // }
-    if (!title || !description || !status || !dueDate || !priority) {
-      console.log(title);
-      console.log(description);
-      console.log(status);
-      console.log(dueDate);
-      console.log(priority);
-      alert("Please fill all the fields");
+    if (!name || !Description || !status || !dueDate || !priority) {
+      toast.error("Please fill in all the fields");
       return;
     }
 
-    const newTask = { title, description, status, dueDate, priority };
-    const updatedTasks = [...task, newTask];
+    const newTask = { name:name, Description:Description, status:status, dueDate:dueDate, priority:priority };
 
-    settask(updatedTasks);
-    localStorage.setItem("task", JSON.stringify(updatedTasks));
+    try {
+      const savedTask = await creatnewTask(newTask);
+      toast.success("Task added successfully");
+      // setTasks((prevTasks) => [...prevTasks, savedTask]);
+      addTask(savedTask);
+      setName("");
+      setDescription("");
+      setStatus("To Do");
+      setDueDate(new Date().toISOString().split("T")[0]);
+      setPriority("Low");
 
-    addTask(newTask);
-    console.log("test here")
-
-    settitle("");
-    setdescription("");
-    setStatus("");
-    setdueDate("");
-    setPriority("");
-
-    onClose();
-  };
-
-  //   const handleChange = (e, b) => {
-  //     debugger;
-  //     console.log(e.target.value);
-  //     if (b === "priority") {
-  //       setPriority(e.target.value);
-  //     } else {
-  //       setStatus(e.target.value);
-  //     }
-  //   };
-  const handlePriorityChange = (e) => {
-
-    console.log("priority: " + e.target.value);
-    setPriority(e.target.value);
-  };
-
-  const handleStatusChange = (e) => {
-    console.log("status: " + e.target.value);
-    setStatus(e.target.value);
+      onClose();
+    } catch (error) {
+      console.error("Error adding task:", error);
+      toast.error("Failed to add task");
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handlesubmit}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Title"
-          value={title}
-          onChange={(e) => {
-            console.log("title: " + e.target.value);
-            settitle(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => {
-            console.log("description: " + e.target.value);
-            setdescription(e.target.value);
-          }}
-        />
-        <select
-          type="text"
-          placeholder="Status"
-          value={status}
-          onChange={(e) => {
-            console.log("status: " + e);
-            handleStatusChange(e);
-          }}
-        >
-          <option value="todo">To Do</option>
-          <option value="inprogress">In Progress</option>
-          <option value="done">Done</option>
+          value={name}
+          onChange={(e) => setName(e.target.value)} />
+        <input type="text"  placeholder="Description" value={Description} onChange={(e) => setDescription(e.target.value)}/>
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <option value="To Do">To Do</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Done">Done</option>
         </select>
-        <input
-          type="date"
-          placeholder="Due Date"
-          value={dueDate}
-          onChange={(e) => {
-            console.log("duedata", e.target.value);
-            setdueDate(e.target.value);
-          }}
-        />
-        <select
-          type="text"
-          placeholder="Priority"
-          value={priority}
-          onChange={(e) => {
-            console.log("priority", e)
-            handlePriorityChange(e);
-          }}
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
+         <input type="date" value={dueDate} onChange={(e) => setDueDate(new Date(e.target.value).toISOString())} /> 
+      
+        <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
         </select>
         <button type="submit">Add Task</button>
       </form>
