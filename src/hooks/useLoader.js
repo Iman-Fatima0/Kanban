@@ -1,9 +1,9 @@
-import React from 'react'
+import axios from "axios";
+const apiUrl = "http://localhost:3001/logger";
 
-function useLoader() {
-  return (
-    <div>useLoader</div>
-  )
+export const getAllLoggers = async()=>
+{
+    const res=await axios.get(`${apiUrl}/allloggers`,{withCredentials:true});
+    return res.data;
+
 }
-
-export default useLoader

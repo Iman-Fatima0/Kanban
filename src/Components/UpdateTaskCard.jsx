@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { updateaTask } from "../hooks/useTasks";
 import toast from "react-hot-toast";
 
-function UpdateTaskCard({ task, updateTask, onClose }) {
+function UpdateTaskCard({ task, updateTask, onClose, getTasks }) {
   const [name, setName] = useState(task.name || "");
   const [Description, setDescription] = useState(task.Description || "");
   const [status, setStatus] = useState(task.status || "To Do");
@@ -19,12 +19,19 @@ function UpdateTaskCard({ task, updateTask, onClose }) {
       return;
     }
 
-    const updatedTask = { ...task, name, Description, status, dueDate, priority };
-
+    const updatedTask = {
+      ...task,
+      name,
+      Description,
+      status,
+      dueDate,
+      priority,
+    };
     try {
-      const savedTask = await updateaTask( updatedTask); 
+      const savedTask = await updateaTask(updatedTask);
+      await getTasks();
+      // await updateTask(savedTask);
       toast.success("Task updated successfully");
-      updateTask(savedTask);
       onClose();
     } catch (error) {
       console.log(error);
@@ -45,8 +52,7 @@ function UpdateTaskCard({ task, updateTask, onClose }) {
           type="text"
           placeholder="Description"
           value={Description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+          onChange={(e) => setDescription(e.target.value)}/>
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="To Do">To Do</option>
           <option value="In Progress">In Progress</option>

@@ -6,7 +6,7 @@ import toast,{Toaster} from "react-hot-toast";
 import UpdateTaskCard from "./UpdateTaskCard";
 
 
-const Donecol = ({ tasks, updateTask, deleteTask, handledragstart }) => {
+const Donecol = ({tasks, updateTask, deleteTask, handledragstart , getTasks }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,26 +17,26 @@ const Donecol = ({ tasks, updateTask, deleteTask, handledragstart }) => {
   }, [tasks]);
 
   const deltetion = async (id) => {
-    try {
-      const res = await deleteaTask(id);
-      deleteTask(res);
-      toast.success("Task deleted successfully");
-    } catch (err) {
-      toast.error("Failed to delete task");
-      console.error(err);
-    }
+    // try {
+    //   const res = await deleteaTask(id);
+    //   deleteTask(res);
+    //   toast.success("Task deleted successfully");
+    // } catch (err) {
+    //   toast.error("Failed to delete task");
+    //   console.error(err);
+    // }
   };
 
   const updation = async (task) => {
-    try {
-      const updatedtask={...task}
-      const res = await updateaTask(updatedtask);
-      updateTask(res);
-      toast.success("Task moved to Done successfully");
-    } catch (err) {
-      toast.error("Failed to move task to Done");
-      console.error(err);
-    }
+    // try {
+    //   const updatedtask={...task}
+    //   const res = await updateaTask(updatedtask);
+    //   updateTask(res);
+    //   toast.success("Task moved to Done successfully");
+    // } catch (err) {
+    //   toast.error("Failed to move task to Done");
+    //   console.error(err);
+    // }
   };
 
   const showModal = (task) => {
@@ -59,7 +59,7 @@ const Donecol = ({ tasks, updateTask, deleteTask, handledragstart }) => {
         renderItem={(task) => (
           <List.Item draggable onDragStart={() => handledragstart(task)}>
             <div>
-              <strong>{task.name}</strong>
+              <strong className="text-green-500">{task.name}</strong>
               <p>{task.Description}</p>
               <p>
                 <strong>Priority:</strong>{" "}
@@ -70,7 +70,7 @@ const Donecol = ({ tasks, updateTask, deleteTask, handledragstart }) => {
               <p>Due Date: {task.dueDate}</p>
             </div>
             <div>
-              <Button onClick={() => deltetion({_id:task._id})} type="danger">
+              <Button onClick={() => deleteTask({_id:task._id})} type="danger">
                 <DeleteOutlined />
               </Button>
               <Button onClick={() => showModal(task)} type="primary">
@@ -89,8 +89,9 @@ const Donecol = ({ tasks, updateTask, deleteTask, handledragstart }) => {
         {selectedTask && (
           <UpdateTaskCard
             task={selectedTask}
-            updateTask={updation}
+            updateTask={updateTask}
             onClose={handleCancel}
+            getTasks={getTasks}
           />
         )}
       </Modal>

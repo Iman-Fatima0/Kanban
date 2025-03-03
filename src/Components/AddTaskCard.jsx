@@ -58,8 +58,7 @@ function AddTaskCard({ addTask, onClose }) {
           <option value="In Progress">In Progress</option>
           <option value="Done">Done</option>
         </select>
-         <input type="date" value={dueDate} onChange={(e) => setDueDate(new Date(e.target.value).toISOString())} /> 
-      
+        <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} /> 
         <select value={priority} onChange={(e) => setPriority(e.target.value)}>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
