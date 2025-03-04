@@ -83,8 +83,7 @@ const Inprogresscol = ({tasks, updateTask, deleteTask, handledragstart , getTask
         title="Update Task"
         open={isModalOpen}
         onCancel={handleCancel}
-        footer={null}
-      >
+        footer={null}>
         {selectedTask && (
           <UpdateTaskCard
             task={selectedTask}

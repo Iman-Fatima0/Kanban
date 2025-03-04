@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Flex, Splitter, Typography } from "antd";
-import Navbar from "../Components/Navbar";
 import Todocol from "../Components/Todocol";
 import Inprogresscol from "../Components/Inprogresscol";
 import Donecol from "../Components/Donecol";
+import { Modal, Button } from "antd";
+import AddTaskCard from "../Components/AddTaskCard"; 
+import { FileAddOutlined } from "@ant-design/icons";
 import {
   deleteaTask,
   updateaTask,
@@ -13,9 +15,18 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 
 const TodoPage = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [draggedtask, setdraggedtask] = useState(null);
   const [tasks, setTasks] = useState([]);
   console.log("tasks", tasks);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const getTasks = async () => {
     try {
       const data = await getAlltasks();
@@ -90,7 +101,16 @@ const TodoPage = () => {
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
-
+      <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
+        <Button type="primary" onClick={showModal} icon={<FileAddOutlined />} />
+      </div>
+        <Modal 
+          title="Add a New Task" 
+          open={isModalOpen} 
+          onCancel={handleCancel} 
+          footer={null}>
+          <AddTaskCard addTask={addTask} onClose={handleCancel} /> 
+        </Modal>
       <Splitter
         style={{
           height: "80vh",

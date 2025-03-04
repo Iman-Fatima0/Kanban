@@ -5,7 +5,7 @@ const apiUrl = "http://localhost:3001/user";
 export const Login =async (data) =>
 {
   
-    const res= axios.post(`${apiUrl}/login`,data,{withCredentials:true});
+    const res= await axios.post(`${apiUrl}/login`,data,{withCredentials:true});
     console.log(res);
     return res.data;
 }
