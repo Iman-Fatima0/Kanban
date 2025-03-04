@@ -16,15 +16,14 @@ const {user,userLoggedOut}=useContext(DataContext);
   // };
   const handlelogout = () => {
     userLoggedOut();
-    
   }
 
   return (
     <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
       <Link to="/Todopage">
         <h1 className="text-xl font-bold">
-          {/* {user.name}'s */}
-           Kanban Board</h1>
+        <div className="text-red-400 text-xl ">{user.name}'s</div>Kanban Board</h1>
+      
         {/* console.log(user.name); */}
       </Link>
       <div className="flex space-x-4 items-center">

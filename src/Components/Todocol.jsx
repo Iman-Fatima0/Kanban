@@ -7,7 +7,6 @@ import UpdateTaskCard from "./UpdateTaskCard";
 
 
 const Todocol = ({ tasks, updateTask, deleteTask, handledragstart , getTasks }) => {
-    <Toaster position="top-center" reverseOrder={false}/>
   
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);

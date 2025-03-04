@@ -12,7 +12,7 @@ const SignUpform = () => {
           const res = await SignUp(form);
           setForm(res);
           toast.success("SignUp Successfully");
-          navigate("/Todopage");
+          navigate("/Loginform");
         } catch (err) {
           toast.error("Failed to SignUp");
           console.error(err);
