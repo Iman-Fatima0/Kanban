@@ -36,7 +36,7 @@ const Loginform = () => {
   return (
     <>
       {/* <Toaster position="top-center" reverseOrder={false} /> */}
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen ">
         <div className="w-80 bg-gray-800 text-gray-200 p-6 rounded-lg shadow-lg">
           <h2 className="text-center text-xl font-semibold mb-3">Login</h2>
           <form className="space-y-3" onSubmit={Loginfunc}>
@@ -51,7 +51,7 @@ const Loginform = () => {
                 onChange={(e) =>
                   setForm((prevForm) => ({ ...prevForm, email: e.target.value }))
  }
-                className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-red-600"
               />
             </div>
             <div>
@@ -65,17 +65,17 @@ const Loginform = () => {
                 onChange={(e) =>
                   setForm((prevForm) => ({ ...prevForm, password: e.target.value }))
                 }
-                className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-red-600" />
             </div>
             <button
               type="submit"
-              className="w-full bg-purple-500 hover:bg-purple-600 text-gray-900 font-semibold py-2 rounded">
+              className="w-full bg-red-500 hover:bg-red-600 text-gray-900 font-semibold py-2 rounded">
               Sign In
             </button>
           </form>
           <p className="text-center text-xs mt-3 text-gray-400">
             Don't have an account?{" "}
-            <a href="/SignUp" className="text-purple-400 hover:underline">
+            <a href="/SignUp" className="text-red-400 hover:underline">
               Sign up
             </a>
           </p>

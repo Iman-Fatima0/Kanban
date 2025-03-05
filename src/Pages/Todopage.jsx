@@ -102,7 +102,7 @@ const TodoPage = () => {
     <div>
       {/* <Toaster position="top-center" reverseOrder={false} /> */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
-        <Button type="primary" onClick={showModal} icon={<FileAddOutlined />} />
+        <Button type="primary" className="bg-green-400" onClick={showModal} icon={<FileAddOutlined />} />
       </div>
         <Modal 
           title="Add a New Task" 

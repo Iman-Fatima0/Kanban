@@ -8,11 +8,11 @@ import Loginform from './Pages/Loginform';
 import Navbar from './Components/Navbar';
 import { DataContext } from './Context/UserContext';
 import { Toaster } from 'react-hot-toast';
+import './App.css';
 
 function App() {
   const [show, setShow] = useState(true);
   const {user}=useContext(DataContext);
-
 
   useEffect(() => {
     const timer = setTimeout(() => {

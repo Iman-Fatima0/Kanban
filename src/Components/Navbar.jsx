@@ -19,9 +19,9 @@ const {user,userLoggedOut}=useContext(DataContext);
   }
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-gray-800 text-white">
+    <nav className="flex justify-between items-center p-2 bg-transparent text-white">
       <Link to="/Todopage">
-        <h1 className="text-xl font-bold">
+        <h1 className="text-xl font-bold hover:text-orange-600">
         <div className="text-red-400 text-xl ">
           {/* {user.name}'s */}
           </div>Kanban Board</h1>
@@ -43,12 +43,12 @@ const {user,userLoggedOut}=useContext(DataContext);
           <AddTaskCard addTask={addTask} onClose={handleCancel} /> 
         </Modal> */}
         <Link to="/Loginform">
-          <Button icon={<UserOutlined />} />
+          <Button icon={<UserOutlined />} className="bg-slate-400 hover:bg-slate-700" />
         </Link>
         <Link to="/History">
-          <Button>History</Button>
+          <Button className="bg-slate-500  hover:bg-slate-700">History</Button>
         </Link>
-        <Button onClick={handlelogout}>Logout</Button>
+        <Button onClick={handlelogout} className="bg-slate-600 hover:bg-slate-700">Logout</Button>
       </div>
     </nav>
   );

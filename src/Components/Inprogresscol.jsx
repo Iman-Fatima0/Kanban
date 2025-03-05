@@ -58,21 +58,21 @@ const Inprogresscol = ({tasks, updateTask, deleteTask, handledragstart , getTask
         renderItem={(task) => (
           <List.Item draggable onDragStart={() => handledragstart(task)}>
             <div>
-              <strong className="text-amber-500">{task.name}</strong>
+              <strong className="text-amber-600">{task.name}</strong>
               <p>{task.Description}</p>
               <p>
-                <strong>Priority:</strong>{" "}
+                {/* <strong>Priority:</strong>{" "} */}
                 <Tag color={task.priority === "High"  ? "red"  : task.priority === "Medium"  ? "orange"  : "green"  } >
                   {task.priority}
                 </Tag>
               </p>
-              <p>Due Date: {task.dueDate}</p>
+              <p> {task.dueDate}</p>
             </div>
             <div>
               <Button onClick={() =>deleteTask({_id:task._id})} type="danger">
                 <DeleteOutlined />
               </Button>
-              <Button onClick={() => showModal(task)} type="primary">
+              <Button className="bg-slate-800" onClick={() => showModal(task)} type="primary">
               <EditOutlined />
                </Button>
             </div>

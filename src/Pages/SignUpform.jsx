@@ -34,7 +34,7 @@ const SignUpform = () => {
               type="text"
               id="name"
               value={form.name}   onChange={(e) =>   setForm(prevForm => ({ ...prevForm,   name: e.target.value  }))}
-              className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
+              className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-red-500" />
           </div>
           <div>
             <label htmlFor="role" className="text-sm text-gray-400">
@@ -43,7 +43,7 @@ const SignUpform = () => {
             <select
               type="text"
               id="role" value={form.role} onChange={(e)=>{ setForm(prevForm=>({...prevForm,role:e.target.value})) }}
-              className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500">
+              className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-red-500">
             <option value="Admin" onChange={(e)=>{setForm(e.target.value);}} >Admin</option>
             <option value="User" onChange={(e)=>{setForm(e.target.value);  }}>User</option>
             </select>
@@ -52,15 +52,15 @@ const SignUpform = () => {
             <label htmlFor="email" className="text-sm text-gray-400">
               Email
             </label>
-            <input type="email" value={form.email}  onChange={(e)=>{ setForm(prevForm=>({...prevForm, email:e.target.value})) }}id="email" className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            <input type="email" value={form.email}  onChange={(e)=>{ setForm(prevForm=>({...prevForm, email:e.target.value})) }}id="email" className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-red-500" />
           </div>
           <div>
             <label htmlFor="password" className="text-sm text-gray-400">
               Password
             </label>
-            <input type="password"value={form.password}   onChange={(e)=>{ setForm(prevForm=>({...prevForm, password:e.target.value})) }} id="password" className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-purple-500"/>
+            <input type="password"value={form.password}   onChange={(e)=>{ setForm(prevForm=>({...prevForm, password:e.target.value})) }} id="password" className="w-full mt-1 p-2.5 bg-gray-700 text-white rounded focus:outline-none focus:ring-2 focus:ring-red-500"/>
           </div>
-          <button onClick={(e)=>SignUpfunc(e)} className="w-full bg-purple-500 hover:bg-purple-600 text-gray-900 font-semibold py-2 rounded">
+          <button onClick={(e)=>SignUpfunc(e)} className="w-full bg-red-500 hover:bg-red-600 text-gray-900 font-semibold py-2 rounded">
             Sign Up
           </button>
         </form>
