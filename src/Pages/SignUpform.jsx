@@ -1,6 +1,6 @@
 import React from "react";
 import { SignUp } from "../hooks/useUser";
-import toast,{Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 const SignUpform = () => {
     const navigate= useNavigate();
@@ -21,7 +21,7 @@ const SignUpform = () => {
   return (
 
   <>       
-   <Toaster position="top-center" reverseOrder={false}/>
+   {/* <Toaster position="top-center" reverseOrder={false}/> */}
     <div className="flex items-center justify-center h-screen">
       <div className="w-80 bg-gray-800 text-gray-200 p-6 rounded-lg shadow-lg">
         <h2 className="text-center text-xl font-semibold mb-3">Sign Up</h2>

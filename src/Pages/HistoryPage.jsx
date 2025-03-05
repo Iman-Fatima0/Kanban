@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, List } from "antd";
-import toast, { Toaster } from "react-hot-toast";
+import toast  from "react-hot-toast";
 import { getAllLoggers } from "../hooks/useLoader";
 
 const HistoryPage = () => {
@@ -29,7 +29,7 @@ const HistoryPage = () => {
 
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false} />
+      {/* <Toaster position="top-center" reverseOrder={false} /> */}
       <List
         itemLayout="horizontal"
         dataSource={loggers}

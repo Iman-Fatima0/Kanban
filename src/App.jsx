@@ -7,6 +7,7 @@ import HistoryPage from './Pages/HistoryPage';
 import Loginform from './Pages/Loginform';
 import Navbar from './Components/Navbar';
 import { DataContext } from './Context/UserContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [show, setShow] = useState(true);
@@ -26,6 +27,7 @@ function App() {
         <Loader />
       ) : (
         <>
+        <Toaster position="top-center" reverseOrder={false}/>
       
           <Navbar  />
           <Routes>

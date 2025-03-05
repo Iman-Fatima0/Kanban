@@ -51,7 +51,7 @@ const Donecol = ({tasks, updateTask, deleteTask, handledragstart , getTasks }) =
 
   return (
     <div>
-        <Toaster position="top-center" reverseOrder={false}/>
+        {/* <Toaster position="top-center" reverseOrder={false}/> */}
       
       <List
         bordered

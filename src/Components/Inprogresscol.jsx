@@ -50,7 +50,7 @@ const Inprogresscol = ({tasks, updateTask, deleteTask, handledragstart , getTask
 
   return (
     <div>
-        <Toaster position="top-center" reverseOrder={false}/>
+        {/* <Toaster position="top-center" reverseOrder={false}/> */}
 
       <List
         bordered
@@ -58,7 +58,7 @@ const Inprogresscol = ({tasks, updateTask, deleteTask, handledragstart , getTask
         renderItem={(task) => (
           <List.Item draggable onDragStart={() => handledragstart(task)}>
             <div>
-              <strong className="text-amber-400">{task.name}</strong>
+              <strong className="text-amber-500">{task.name}</strong>
               <p>{task.Description}</p>
               <p>
                 <strong>Priority:</strong>{" "}

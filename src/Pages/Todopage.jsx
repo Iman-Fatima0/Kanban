@@ -12,7 +12,7 @@ import {
   creatnewTask,
   getAlltasks,
 } from "../hooks/useTasks";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const TodoPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -100,7 +100,7 @@ const TodoPage = () => {
 
   return (
     <div>
-      <Toaster position="top-center" reverseOrder={false} />
+      {/* <Toaster position="top-center" reverseOrder={false} /> */}
       <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
         <Button type="primary" onClick={showModal} icon={<FileAddOutlined />} />
       </div>

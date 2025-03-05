@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Login } from "../hooks/useUser";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast  from "react-hot-toast";
 import { DataContext } from "../Context/UserContext";
 
 const Loginform = () => {
@@ -35,7 +35,7 @@ const Loginform = () => {
 
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false} />
+      {/* <Toaster position="top-center" reverseOrder={false} /> */}
       <div className="flex items-center justify-center h-screen">
         <div className="w-80 bg-gray-800 text-gray-200 p-6 rounded-lg shadow-lg">
           <h2 className="text-center text-xl font-semibold mb-3">Login</h2>

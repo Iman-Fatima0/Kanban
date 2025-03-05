@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { List, Button, Tag, Modal } from "antd";
 import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { deleteaTask, updateaTask } from "../hooks/useTasks";
-import toast,{Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import UpdateTaskCard from "./UpdateTaskCard";
 
 
@@ -51,7 +51,7 @@ const Todocol = ({ tasks, updateTask, deleteTask, handledragstart , getTasks }) 
 
   return (
     <div>
-        <Toaster position="top-center" reverseOrder={false}/>
+        {/* <Toaster position="top-center" reverseOrder={false}/> */}
       
       <List
         bordered
