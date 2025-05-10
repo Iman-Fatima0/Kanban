@@ -10,10 +10,10 @@ const Inprogresscol = ({ tasks, updateTask, deleteTask,handledragstart }) => {
 
   return (
     <div>
-      <List  bordered  dataSource={filteredTasks}   renderItem={(task) => (
-          <List.Item draggable onDragStart={() => handledragstart(task)}>
+      <List  bordered  dataSource={filteredTasks}   renderItem={(task , index) => (
+          <List.Item draggable onDragStart={() => handledragstart(task)}  >
             <div>
-              <h3>{task.title}</h3>
+              <strong>{task.title}</strong>
               <p>{task.description}</p>
               <p>
                 <strong>Priority:</strong> <Tag color={task.priority === "high" ? "red" : task.priority === "medium" ? "orange" : "green"}>{task.priority}</Tag>

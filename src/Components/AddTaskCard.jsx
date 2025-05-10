@@ -4,9 +4,8 @@ function AddTaskCard({ addTask, onClose }) {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const [status, setStatus] = useState("todo");
-  const [dueDate, setdueDate] = useState("");
+  const [dueDate, setdueDate] = useState(new Date());
   const [priority, setPriority] = useState("low");
-
   const [task, settask] = useState(() => {
     return JSON.parse(localStorage.getItem("task")) || [];
   });
@@ -41,6 +40,7 @@ function AddTaskCard({ addTask, onClose }) {
     localStorage.setItem("task", JSON.stringify(updatedTasks));
 
     addTask(newTask);
+    console.log("test here")
 
     settitle("");
     setdescription("");
@@ -61,10 +61,13 @@ function AddTaskCard({ addTask, onClose }) {
   //     }
   //   };
   const handlePriorityChange = (e) => {
+
+    console.log("priority: " + e.target.value);
     setPriority(e.target.value);
   };
 
   const handleStatusChange = (e) => {
+    console.log("status: " + e.target.value);
     setStatus(e.target.value);
   };
 
@@ -75,14 +78,26 @@ function AddTaskCard({ addTask, onClose }) {
           type="text"
           placeholder="Title"
           value={title}
-          onChange={(e) => settitle(e.target.value)}
+          onChange={(e) => {
+            console.log("title: " + e.target.value);
+            settitle(e.target.value);
+          }}
         />
-        <input  type="text"placeholder="Description"value={description}onChange={(e) => setdescription(e.target.value)}/>
+        <input
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={(e) => {
+            console.log("description: " + e.target.value);
+            setdescription(e.target.value);
+          }}
+        />
         <select
           type="text"
           placeholder="Status"
           value={status}
           onChange={(e) => {
+            console.log("status: " + e);
             handleStatusChange(e);
           }}
         >
@@ -94,13 +109,17 @@ function AddTaskCard({ addTask, onClose }) {
           type="date"
           placeholder="Due Date"
           value={dueDate}
-          onChange={(e) => setdueDate(e.target.value)}
+          onChange={(e) => {
+            console.log("duedata", e.target.value);
+            setdueDate(e.target.value);
+          }}
         />
         <select
           type="text"
           placeholder="Priority"
           value={priority}
           onChange={(e) => {
+            console.log("priority", e)
             handlePriorityChange(e);
           }}
         >

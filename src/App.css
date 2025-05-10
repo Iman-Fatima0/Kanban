@@ -3,8 +3,12 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
 
+}
+.colorss
+{
+background-color: black;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
