@@ -1,26 +1,44 @@
-import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Todopage from './Pages/Todopage';
-
+import { useState, useEffect,useContext } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import TodoPage from './Pages/Todopage';
+import Loader from './Pages/Loader';
+import SignUpform from './Pages/SignUpform';
+import HistoryPage from './Pages/HistoryPage';
+import Loginform from './Pages/Loginform';
+import Navbar from './Components/Navbar';
+import { DataContext } from './Context/UserContext';
+import { Toaster } from 'react-hot-toast';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [show , setShow] = useState(false)
+  const [show, setShow] = useState(true);
+  const {user}=useContext(DataContext);
 
-  setTimeout(() => {
-    
-  }, 4000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, 4000);
+    return () => clearTimeout(timer); 
+  }, []);
 
   return (
     <>
-  {
-    show ? <Loader/> :    <Routes>
-    <Route path="/" exact element={<Todopage />} />
-    <Route path="/todos" element={<Todopage />} />
-  </Routes>
-  }
-
-   
+      {show ? (
+        <Loader />
+      ) : (
+        <>
+        <Toaster position="top-center" reverseOrder={false}/>
+      
+          <Navbar  />
+          <Routes>
+            <Route path="/" element={user? <Navigate to='/Todopage'/> : <Loginform />} />
+            <Route path="/Todopage" element={user ? <TodoPage/>:<Navigate to='/loginform'/>} />
+            <Route path="/SignUp" element={user ? <Navigate to='/Todopage'/>:<SignUpform />} />
+            <Route path="/Loginform" element={user ? <Navigate to='/Todopage'/>:<Loginform />} />
+            <Route path="/History" element={user ? <HistoryPage/>:<Navigate to='/loginform'/>} />
+          </Routes>
+        </>
+      )}
     </>
   );
 }

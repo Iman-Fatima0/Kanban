@@ -1,47 +1,102 @@
 import React, { useState, useEffect } from "react";
-import { List, Button, Tag } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
-const Donecol = ({ tasks, deleteTask, handledragstart }) => {
+import { List, Button, Tag, Modal } from "antd";
+import {EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { deleteaTask, updateaTask } from "../hooks/useTasks";
+import toast,{Toaster} from "react-hot-toast";
+import UpdateTaskCard from "./UpdateTaskCard";
+
+
+const Donecol = ({tasks, updateTask, deleteTask, handledragstart , getTasks }) => {
   const [filteredTasks, setFilteredTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  <Toaster position="top-center" reverseOrder={false}/>
 
   useEffect(() => {
-    setFilteredTasks(tasks.filter((task) => task.status === "done"));
+    setFilteredTasks(tasks.filter((task) => task.status === "Done"));
   }, [tasks]);
-  // const dragstart = (e, task) => {
-  //   e.dataTransfer.setData("task", JSON.stringify(task));
-  // };
 
-  // const dragend = (e) => {
-  //   const droppedTask = JSON.parse(e.dataTransfer.getData("task")); 
-  //   console.log("Task dragged:", droppedTask);
-  // };
+  const deltetion = async (id) => {
+    // try {
+    //   const res = await deleteaTask(id);
+    //   deleteTask(res);
+    //   toast.success("Task deleted successfully");
+    // } catch (err) {
+    //   toast.error("Failed to delete task");
+    //   console.error(err);
+    // }
+  };
+
+  const updation = async (task) => {
+    // try {
+    //   const updatedtask={...task}
+    //   const res = await updateaTask(updatedtask);
+    //   updateTask(res);
+    //   toast.success("Task moved to Done successfully");
+    // } catch (err) {
+    //   toast.error("Failed to move task to Done");
+    //   console.error(err);
+    // }
+  };
+
+  const showModal = (task) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setSelectedTask(null);
+  };
+
   return (
     <div>
-      <List bordered dataSource={filteredTasks} renderItem={(task) => (
-          <List.Item draggable  onDragStart={() => handledragstart(task)} >
+        {/* <Toaster position="top-center" reverseOrder={false}/> */}
+      
+      <List
+        bordered
+        dataSource={filteredTasks}
+        renderItem={(task) => (
+          <List.Item draggable onDragStart={() => handledragstart(task)}>
             <div>
-              <h3>{task.title}</h3>
-              <p>{task.description}</p>
+              <strong className="text-green-600">{task.name}</strong>
+              <p>{task.Description}</p>
               <p>
-                <strong>Priority:</strong> <Tag color={task.priority === "high" ? "red" : task.priority === "medium" ? "orange" : "green"}>{task.priority}</Tag>
+                {/* <strong>Priority:</strong>{" "} */}
+                <Tag color={task.priority === "High"  ? "red"  : task.priority === "Medium"  ? "orange"  : "green"  } >
+                  {task.priority}
+                </Tag>
               </p>
-              <p>
-                <strong>Due Date:</strong> {task.dueDate}
-              </p>
-              <Tag color="blue">Completed </Tag>
+              <p> {task.dueDate}</p>
             </div>
             <div>
-              <Button onClick={() => deleteTask(task.title)} type="danger" >
-               <DeleteOutlined />
+              <Button onClick={() => deleteTask({_id:task._id})} type="danger">
+                <DeleteOutlined />
               </Button>
+              <Button className="bg-slate-800" onClick={() => showModal(task)} type="primary">
+              <EditOutlined />
+               </Button>
             </div>
           </List.Item>
         )}
       />
+      <Modal
+        title="Update Task"
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        {selectedTask && (
+          <UpdateTaskCard
+            task={selectedTask}
+            updateTask={updateTask}
+            onClose={handleCancel}
+            getTasks={getTasks}
+          />
+        )}
+      </Modal>
     </div>
   );
 };
 
 export default Donecol;
-// In the above code snippet, the Donecol component is defined. This component displays the tasks that are in the "Done" status. It receives tasks and deleteTask as props. The tasks prop contains all the tasks, and the deleteTask function is used to delete tasks.
-// The component uses the List component from the antd library to display the tasks. It filters the tasks based on the "done" status and renders the task details along with a "Delete" button for each task.
